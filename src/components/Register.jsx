@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from "react-router-dom";
 
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import validate from './LoginFormValidationRules'
@@ -22,14 +22,13 @@ import useForm from './useForm'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      </Link>{" "}
+      {new Date().getFullYear()}.
     </Typography>
-  )
+  );
 }
 
 function changeValue(e, type) {
@@ -42,22 +41,22 @@ function changeValue(e, type) {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}))
+}));
 
 function login() {
   console.log('No errors, submit callback called!')
@@ -79,7 +78,7 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <img
-          src={process.env.PUBLIC_URL + '/carlogo.png'}
+          src={`${process.env.PUBLIC_URL}/carlogo.png`}
           alt="Logo"
           width="400"
           height="150"
@@ -195,7 +194,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2" component={RouterLink} to="/">
+              <Link href="/#" variant="body2" component={RouterLink} to="/">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -206,5 +205,5 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
-  )
+  );
 }
