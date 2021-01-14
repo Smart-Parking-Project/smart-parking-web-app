@@ -1,6 +1,7 @@
 import React from 'react'
 import SignIn from './components/LogIn.jsx'
 import SignUp from './components/Register.jsx'
+import ForgotPassword from './components/ForgotPassword.jsx'
 import './App.css'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -16,12 +17,20 @@ export default function App() {
           <Register />
         </Route>
 
+        <Route path="/ForgotPassword">
+          <ResetPassword />
+        </Route>
+
         <Route path="/">
           <Home />
         </Route>
       </Switch>
     </Router>
   )
+
+  function ResetPassword() {
+    return ForgotPassword()
+  }
 
   function Home() {
     return SignIn()
