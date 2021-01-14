@@ -16,6 +16,7 @@
     "react/jsx-filename-extension": ["off"],
     "react/prop-types": ["warn"],
     "no-return-assign": ["off"],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-shadow": "warn"
   }
 }
