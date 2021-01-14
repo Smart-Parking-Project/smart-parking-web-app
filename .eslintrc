@@ -11,6 +11,7 @@
     "jest": true
   },
   "rules": {
+    "import/no-named-as-default": 0,
     "max-len": ["error", { "code": 100 }],
     "prefer-promise-reject-errors": ["off"],
     "react/jsx-filename-extension": ["off"],
@@ -18,5 +19,6 @@
     "no-return-assign": ["off"],
     "no-unused-vars": "warn",
     "no-shadow": "warn"
+    
   }
 }
