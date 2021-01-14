@@ -19,6 +19,7 @@ const useForm = (callback, validate) => {
 
   const handleChange = (event) => {
     event.persist()
+    // eslint-disable-next-line no-shadow
     setValues((values) => ({
       ...values,
       [event.target.name]: event.target.value,

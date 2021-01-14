@@ -14,6 +14,14 @@ import Container from "@material-ui/core/Container";
 
 import { Link as RouterLink } from "react-router-dom";
 
+import validate from './LoginFormValidationRules'
+import useForm from './useForm'
+
+function login() {
+    // eslint-disable-next-line no-console
+    console.log('No errors, submit callback called!')
+  }
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ForgotPassword() {
   const classes = useStyles();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    login,
+    validate
+  )
 
   return (
     <Container component="main" maxWidth="xs">
@@ -61,10 +73,11 @@ export default function ForgotPassword() {
           height="150"
         />
 
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                className={`input ${errors.email}`}
                 variant="outlined"
                 required
                 fullWidth
@@ -72,7 +85,11 @@ export default function ForgotPassword() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
+                value={values.email || ''}
               />
+              {errors.email && (
+                <p style={{ color: "red" }}>{errors.email}</p>)}
             </Grid>
           </Grid>
           <Button

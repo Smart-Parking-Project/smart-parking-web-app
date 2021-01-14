@@ -1,5 +1,5 @@
 export default function validate(values) {
-  let errors = {}
+  const errors = {}
   if (!values.username) {
     errors.username = 'User Name is required'
   }
@@ -13,8 +13,15 @@ export default function validate(values) {
   } else if (values.password.length < 8) {
     errors.password = 'Password must be 8 or more characters'
   }
-  if (values.password != values.confirmpassword) {
-    errors.password = 'Passwords Must Match'
+
+  if (!values.confirmpassword) {
+    errors.confirmpassword = 'Confirmed Password is required'
+  } else if (values.confirmpassword.length < 8) {
+    errors.confirmpassword = 'Confirmed Password must be 8 or more characters'
+  }else if (values.password !== values.confirmpassword) {
+    errors.confirmpassword = 'Passwords Must Match'
   }
+  
+  
   return errors
 }

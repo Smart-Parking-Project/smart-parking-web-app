@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Avatar from '@material-ui/core/Avatar'
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TextField from '@material-ui/core/TextField'
@@ -8,14 +7,12 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 
 import { Link as RouterLink } from "react-router-dom";
 
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import validate from './LoginFormValidationRules'
 import useForm from './useForm'
 
@@ -29,13 +26,6 @@ function Copyright() {
       {new Date().getFullYear()}.
     </Typography>
   );
-}
-
-function changeValue(e, type) {
-  const value = e.target.value
-  const nextState = {}
-  nextState[type] = value
-  this.setState(nextState)
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -56,18 +46,17 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+
 }));
 
+
 function login() {
+  // eslint-disable-next-line no-console
   console.log('No errors, submit callback called!')
 }
 
 export default function SignUp() {
   const classes = useStyles()
-  const [userInput, setUserInput] = useState('')
-  const inputchangehandler = (event) => {
-    setUserInput(event.target.value)
-  }
   const { values, errors, handleChange, handleSubmit } = useForm(
     login,
     validate
@@ -88,7 +77,9 @@ export default function SignUp() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                className={`input ${errors.username && 'is-danger'}`}
+                
+                className={`input ${errors.username }`}
+                
                 variant="outlined"
                 margin="normal"
                 type="username"
@@ -102,24 +93,25 @@ export default function SignUp() {
                 autoFocus
               />
               {errors.username && (
-                <p className="help is-danger">{errors.username}</p>
+                <p style={{ color: "red" }} > {errors.username}</p>
               )}
             </Grid>
             <Grid item xs={12}>
               <TextField
-                className={`input ${errors.email && 'is-danger'}`}
+                className={`input ${errors.email}`}
                 type="email"
+                margin="normal"
                 variant="outlined"
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
                 onChange={handleChange}
                 value={values.email || ''}
               />
-              {errors.email && <p className="help is-danger">{errors.email}</p>}
+              {errors.email && (
+                <p style={{ color: "red" }}>{errors.email}</p>)}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -131,17 +123,18 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                className={`input ${errors.password && 'is-danger'}`}
+                className={`input ${errors.password}`}
                 onChange={handleChange}
                 value={values.password || ''}
               />
               {errors.password && (
-                <p className="help is-danger">{errors.password}</p>
+                <p style={{ color: "red" }}>{errors.password}</p>
               )}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
+                className={`input ${errors.confirmpassword}`}
                 required
                 fullWidth
                 name="confirmpassword"
@@ -151,8 +144,8 @@ export default function SignUp() {
                 onChange={handleChange}
                 value={values.confirmpassword || ''}
               />
-              {errors.password && (
-                <p className="help is-danger">{errors.password}</p>
+              {errors.confirmpassword && (
+                <p style={{ color: "red" }}>{errors.confirmpassword}</p>
               )}
             </Grid>
 

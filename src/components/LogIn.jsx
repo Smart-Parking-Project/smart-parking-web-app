@@ -13,6 +13,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link as RouterLink } from "react-router-dom";
+import validate from './LoginFormValidationRules'
+import useForm from './useForm'
+
+function login() {
+  // eslint-disable-next-line no-console
+  console.log('No errors, submit callback called!')
+}
 
 function Copyright() {
   return (
@@ -48,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    login,
+    validate
+  )
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,8 +71,9 @@ export default function SignIn() {
           height="150"
         />
 
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
+            className={`input ${errors.username }`}
             variant="outlined"
             margin="normal"
             required
@@ -70,9 +82,15 @@ export default function SignIn() {
             label="User Name"
             name="username"
             autoComplete="username"
+            onChange={handleChange}
+            value={values.username || ''}
             autoFocus
           />
+          {errors.username && (
+                <p style={{ color: "red" }} > {errors.username}</p>
+              )}
           <TextField
+            className={`input ${errors.password}`}
             variant="outlined"
             margin="normal"
             required
@@ -81,8 +99,13 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
+            onChange={handleChange}
+            value={values.password || ''}
             autoComplete="current-password"
           />
+          {errors.password && (
+                <p style={{ color: "red" }}>{errors.password}</p>
+              )}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
