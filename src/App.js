@@ -1,10 +1,10 @@
-import React from 'react'
-import SignIn from './components/LogIn.jsx'
-import SignUp from './components/Register.jsx'
-import ForgotPassword from './components/ForgotPassword.jsx'
-import './App.css'
-
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SignIn from './components/LogIn';
+import SignUp from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
+import './App.css';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 export default function App() {
   return (
@@ -26,17 +26,17 @@ export default function App() {
         </Route>
       </Switch>
     </Router>
-  )
+  );
 
   function ResetPassword() {
-    return ForgotPassword()
+    return ForgotPassword();
   }
 
   function Home() {
-    return SignIn()
+    return SignIn();
   }
 
   function Register() {
-    return SignUp()
+    return SignUp();
   }
 }
