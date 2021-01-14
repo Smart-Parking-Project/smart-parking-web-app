@@ -1,20 +1,18 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
-
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 import { Link as RouterLink } from "react-router-dom";
-
-import validate from './LoginFormValidationRules'
-import useForm from './useForm'
+import validate from "./LoginFormValidationRules";
+import useForm from "./useForm";
 
 function Copyright() {
   return (
@@ -60,7 +58,7 @@ export default function SignUp() {
   const { values, errors, handleChange, handleSubmit } = useForm(
     login,
     validate
-  )
+  );
 
   return (
     <Container component="main" maxWidth="xs">
@@ -89,7 +87,7 @@ export default function SignUp() {
                 label="User Name"
                 name="username"
                 onChange={handleChange}
-                value={values.username || ''}
+                value={values.username || ""}
                 autoFocus
               />
               {errors.username && (
@@ -108,7 +106,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 onChange={handleChange}
-                value={values.email || ''}
+                value={values.email || ""}
               />
               {errors.email && (
                 <p style={{ color: "red" }}>{errors.email}</p>)}
@@ -125,7 +123,7 @@ export default function SignUp() {
                 autoComplete="current-password"
                 className={`input ${errors.password}`}
                 onChange={handleChange}
-                value={values.password || ''}
+                value={values.password || ""}
               />
               {errors.password && (
                 <p style={{ color: "red" }}>{errors.password}</p>
@@ -142,7 +140,7 @@ export default function SignUp() {
                 type="password"
                 id="confirmpassword"
                 onChange={handleChange}
-                value={values.confirmpassword || ''}
+                value={values.confirmpassword || ""}
               />
               {errors.confirmpassword && (
                 <p style={{ color: "red" }}>{errors.confirmpassword}</p>
