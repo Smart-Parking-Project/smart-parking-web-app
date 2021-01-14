@@ -13,3 +13,22 @@ export const ADD_USER = gql`
     }
   }
 `
+
+export const CREATE_NEW_USER = gql`
+  mutation createNewUser(newUser: UserInput!) {
+    newUser: {
+      username: "test5"
+      email: "onemoretest@yahoo.com"
+      password: "randomPasswordAgain"
+      firstName: "Omar"
+    }
+   {
+    token
+    user {
+      id
+      username
+      email
+      firstName
+    }
+  }
+`

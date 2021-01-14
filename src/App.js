@@ -1,13 +1,33 @@
+import React from 'react'
+import SignIn from './components/LogIn.jsx'
+import SignUp from './components/Register.jsx'
 import './App.css'
-import { ApolloProvider } from '@apollo/client'
-import client from './ApolloContainer'
-import HomePage from './components/Home/HomePage'
 
-function App() {
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+export default function App() {
   return (
-    <ApolloProvider client={client}>
-      <HomePage />
-    </ApolloProvider>
+    <Router>
+      {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+
+      <Switch>
+        <Route path="/Register">
+          <Register />
+        </Route>
+
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   )
+
+  function Home() {
+    return SignIn()
+  }
+
+  function Register() {
+    return SignUp()
+  }
 }
-export default App
