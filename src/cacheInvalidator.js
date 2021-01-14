@@ -9,14 +9,14 @@
 
 export function writeToCache(_cache, data, query) {
   return _cache.writeQuery({
-    query: query,
+    query,
     data,
-  })
+  });
 }
 
 export function readFromCache(_cache, variables, query) {
   return _cache.readQuery({
-    query: query,
+    query,
     variables: { ...variables },
-  })
+  });
 }

@@ -1,10 +1,9 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import SignIn from './components/LogIn';
-import SignUp from './components/Register';
-import ForgotPassword from './components/ForgotPassword';
-import './App.css';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import SignIn from "./components/LogIn";
+import SignUp from "./components/Register";
+import ForgotPassword from "./components/ForgotPassword";
+import "./App.css";
 
 export default function App() {
   return (
