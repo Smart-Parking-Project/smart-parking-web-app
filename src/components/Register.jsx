@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -15,6 +15,10 @@ import Container from '@material-ui/core/Container'
 
 import { Link as RouterLink } from 'react-router-dom'
 
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
+import validate from './LoginFormValidationRules'
+import useForm from './useForm'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -26,6 +30,13 @@ function Copyright() {
       {'.'}
     </Typography>
   )
+}
+
+function changeValue(e, type) {
+  const value = e.target.value
+  const nextState = {}
+  nextState[type] = value
+  this.setState(nextState)
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -48,8 +59,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+function login() {
+  console.log('No errors, submit callback called!')
+}
+
 export default function SignUp() {
   const classes = useStyles()
+  const [userInput, setUserInput] = useState('')
+  const inputchangehandler = (event) => {
+    setUserInput(event.target.value)
+  }
+  const { values, errors, handleChange, handleSubmit } = useForm(
+    login,
+    validate
+  )
 
   return (
     <Container component="main" maxWidth="xs">
@@ -62,23 +85,31 @@ export default function SignUp() {
           height="150"
         />
 
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                className={`input ${errors.username && 'is-danger'}`}
                 variant="outlined"
                 margin="normal"
+                type="username"
                 required
                 fullWidth
                 id="username"
                 label="User Name"
                 name="username"
-                autoComplete="username"
+                onChange={handleChange}
+                value={values.username || ''}
                 autoFocus
               />
+              {errors.username && (
+                <p className="help is-danger">{errors.username}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
+                className={`input ${errors.email && 'is-danger'}`}
+                type="email"
                 variant="outlined"
                 required
                 fullWidth
@@ -86,7 +117,10 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleChange}
+                value={values.email || ''}
               />
+              {errors.email && <p className="help is-danger">{errors.email}</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -98,7 +132,13 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                className={`input ${errors.password && 'is-danger'}`}
+                onChange={handleChange}
+                value={values.password || ''}
               />
+              {errors.password && (
+                <p className="help is-danger">{errors.password}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -109,8 +149,12 @@ export default function SignUp() {
                 label="Confirm Password"
                 type="password"
                 id="confirmpassword"
-                autoComplete="current-password"
+                onChange={handleChange}
+                value={values.confirmpassword || ''}
               />
+              {errors.password && (
+                <p className="help is-danger">{errors.password}</p>
+              )}
             </Grid>
 
             <Grid item xs={12} sm={6}>
@@ -121,7 +165,6 @@ export default function SignUp() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -146,7 +189,7 @@ export default function SignUp() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className="button is-block is-info is-fullwidth"
           >
             Sign Up
           </Button>
