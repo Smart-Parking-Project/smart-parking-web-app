@@ -3,7 +3,7 @@ import React from "react";
 function Dashboard() {
   return (
     <div>
-      <h1>Main Dashboard</h1>
+      <h1>Logged into Smart Parking Application</h1>
     </div>
   );
 }

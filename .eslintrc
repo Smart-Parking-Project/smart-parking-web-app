@@ -18,6 +18,8 @@
     "react/prop-types": ["warn"],
     "no-return-assign": ["off"],
     "no-unused-vars": "warn",
-    "no-shadow": "warn"
+    "no-shadow": "warn",
+    "no-use-before-define": "warn",
+    "import/prefer-default-export": "warn"
   }
 }

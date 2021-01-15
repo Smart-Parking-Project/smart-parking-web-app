@@ -7,7 +7,7 @@ import MenuBar from "./components/MenuBar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-// import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   return (
@@ -17,6 +17,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/dashboard" component={Dashboard} />
       </Container>
     </Router>
   );
