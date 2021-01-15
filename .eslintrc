@@ -19,6 +19,5 @@
     "no-return-assign": ["off"],
     "no-unused-vars": "warn",
     "no-shadow": "warn"
-    
   }
 }

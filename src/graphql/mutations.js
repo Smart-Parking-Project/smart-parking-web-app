@@ -15,15 +15,32 @@ export const ADD_USER = gql`
 `;
 
 export const CREATE_NEW_USER = gql`
-  mutation createNewUser($newUser: UserInput!) {
-    createNewUser(newUser: $newUser) {
+  mutation createNewUser(
+    $username: String!
+    $email: String!
+    $password: String!
+    $confirmPassword: String!
+    $firstName: String
+    $lastName: String
+  ) {
+    createNewUser(
+      newUser: {
+        username: $username
+        email: $email
+        password: $password
+        confirmPassword: $confirmPassword
+        firstName: $firstName
+        lastName: $lastName
+      }
+    ) {
+      token
       user {
-        id 
+        id
         username
         email
         firstName
         lastName
       }
     }
-   
+  }
 `;
