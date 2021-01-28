@@ -19,14 +19,25 @@ export const CREATE_NEW_USER = gql`
         lastName: $lastName
       }
     ) {
+      id
+      email
+      username
+      firstName
+      lastName
       token
-      user {
-        id
-        username
-        email
-        firstName
-        lastName
-      }
+    }
+  }
+`;
+
+export const AUTHENTICATE_USER = gql`
+  mutation authenticateUser($username: String!, $password: String!) {
+    authenticateUser(username: $username, password: $password) {
+      id
+      username
+      email
+      firstName
+      lastName
+      token
     }
   }
 `;
