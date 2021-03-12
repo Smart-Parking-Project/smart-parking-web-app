@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
-export const READ_USERS = gql`
-  query {
-    users {
-      id
-      email
+
+export const GET_PARKINGS = gql`
+  query getAllParkingSpace() {
+    getAllParkingSpace() {
+     
     }
   }
-`
+`;
