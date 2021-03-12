@@ -4,6 +4,8 @@ import { useMutation } from "@apollo/client";
 import { AUTHENTICATE_USER } from "../graphql/mutations";
 import { useForm } from "../util/authHooks";
 import { AuthContext } from "../context/auth";
+import MenuBar from "../components/MenuBar";
+
 
 function Login(props) {
   const context = useContext(AuthContext);
@@ -16,8 +18,9 @@ function Login(props) {
 
   const [loginUser, { loading }] = useMutation(AUTHENTICATE_USER, {
     update(_, { data: { authenticateUser: userData } }) {
+      
       context.login(userData);
-      props.history.push("/dashboard");
+      props.history.push("/dash");
     },
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
@@ -31,6 +34,7 @@ function Login(props) {
 
   return (
     <div className="form-container">
+      <MenuBar/>
       <Form onSubmit={onSubmit} noValidate className="">
         <h1>Login</h1>
         <Form.Input
