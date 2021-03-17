@@ -32,36 +32,97 @@ export default class LotMap extends React.Component {
 
     const data = props;
 
+    const initialT = [
 
-    const initial = [
-      { i: (data.lotData[0].spaceNumber-1).toString(), x: 2, y: 3, w: 1, h: 6, isResizable: false,
+      { i: (data.lotData[0].spaceNumber-1).toString(), x: 2, y: 3, w: 1, h: 6, 
+        isResizable: false,
          isDraggable: data.admin, 
       static: data.lotData[0].isOccupied},
-      { i: (data.lotData[1].spaceNumber-1).toString(), x: 3, y: 3, w: 1, h: 6, isResizable: false,
+
+      { i: (data.lotData[1].spaceNumber-1).toString(), x: 3, y: 3, w: 1, h: 6, 
+        isResizable: false,
           isDraggable: data.admin, 
       static: data.lotData[1].isOccupied},
-      { i: (data.lotData[2].spaceNumber-1).toString(), x: 0, y: 0, w: 2, h: 3 , isResizable: false, 
+
+      { i: (data.lotData[2].spaceNumber-1).toString(), x: 0, y: 0, w: 2, h: 3 , 
+        isResizable: false, 
         isDraggable: data.admin, 
       static: data.lotData[2].isOccupied},
       
     ];
-
+    
+    console.log(data );
 
 
     this.state = {
-      newCounter: initial.length,
+      newCounter: data.length,
       roadCount: 0,
       gateCount: 0,
-      layouts: initial,
+      layouts: initialT,
       admin: data.admin
     };
+  }
 
-   
+
+  componentDidUpdate = (prevProps) => {
+/*
+    console.log("comp did update ");
+    console.log(this.props, "  previous: ", prevProps);
+    */
+    // Typical usage (don't forget to compare props):
+    if (prevProps && 
+      prevProps.lotData !== this.props.lotData) {
+
+        
+      this.onOccupancyChange(this.props);
+    
+    }
+    
+  }
+ 
+
+   initialize= (props) =>{ 
+      const data = props;
+      /*
+      console.log("DATA2 IS HEREEEEE");
+
+      console.log(data);
+     */
+    const initial = [
+
+    { i: (data.layouts[0].i).toString(), x: 2, y: 3, w: 1, h: 6, 
+      isResizable: false,
+       isDraggable: data.admin, 
+    static: data.layouts[0].static},
+    { i: (data.layouts[1].i).toString(), x: 3, y: 3, w: 1, h: 6, 
+      isResizable: false,
+        isDraggable: data.admin, 
+    static: data.layouts[1].static},
+    { i: (data.layouts[2].i).toString(), x: 0, y: 0, w: 2, h: 3 , 
+      isResizable: false, 
+      isDraggable: data.admin, 
+    static: data.layouts[2].static},
+    
+  ];
+  return initial;
 
   }
 
   
+
+  onOccupancyChange = (newProps) => {
+
+    console.log("New props" ,newProps);
+    const newData = newProps.lotData.map((p) =>  ({i: p.spaceNumber.toString(), 
+        x: 2, y: 3, w: 1, h: 6,
+      isResizable: false,isDraggable: false,  static: p.isOccupied}))
   
+
+    console.log("New data" ,newData);
+    this.setState({ layouts: newData});
+
+  }
+
   onLayoutChange = (layouts) => {
     this.setState({ layouts });
   }
@@ -154,6 +215,7 @@ export default class LotMap extends React.Component {
   
 
   createElement = (el) =>{
+
     const removeStyle = {
       position: "absolute",
       right: "2px",
@@ -171,10 +233,14 @@ export default class LotMap extends React.Component {
      const spaceColor= (el.isEmpty ? spaceStyle.empty : spaceStyle.full)
       
     const i = el.add ? "+" : el.i;
+
+    /*
     console.log(i)
     console.log(el)
     console.log(el.isEmpty)
       console.log(spaceColor)
+  */
+
     return (
       <div key={i} data-grid={el}  >
         <div className="text">{i}</div>
@@ -222,10 +288,11 @@ export default class LotMap extends React.Component {
         }
       
         <div>
+         { /*
             {console.log("ADmin?")}
            {console.log(this.state.admin)}
-
-        <ResponsiveReactGridLayout
+         */}
+        <ResponsiveReactGridLayout 
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...this.props}
           layouts = {this.state.layouts}

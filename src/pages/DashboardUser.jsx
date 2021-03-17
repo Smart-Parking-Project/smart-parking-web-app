@@ -158,6 +158,9 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  fixedWidth: {
+    width: 270,
+  },
 
    shiftTextLeft: {
     marginLeft: '0px'
@@ -178,17 +181,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /*  <h1>{user.username} you are now logged into </h1> */
+
 function getCurrentTime(){
-
-
 
   const today = new Date();
 
-    const timeNow = `${today.getHours()  }:${  today.getMinutes()  }:${  today.getSeconds()}`;
   
-  return <Timestamp options={{ includeDay: false, includeYear: false, includeMonth: false,
+  return <Timestamp 
+        options={{ includeDay: false, includeYear: false, includeMonth: false,
     twentyFourHour: true }} date={today} />;
-  }
+  } 
+
+ 
 
 function DashboardUser() {
   const classes = useStyles();
@@ -198,19 +202,34 @@ function DashboardUser() {
   const [open, setOpen, timerOn, setTimerOn] = useState(false);
 
   
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight, classes.fixedWidth);
   const timerStyle = clsx(classes.paper, classes.fixedHeight, 'stopwatch-card');
+
+  const [enter, setEnter ] = useState();
+  const [exit, setExit] = useState();
 
   const iniTimer = () => {
     handleStart();
+    setEnter(getCurrentTime());
   }
   
+
+  const exiTimer = () => {
+
+    setExit(getCurrentTime());
+    handlePause();
+    
+
+
+  }
 
   const formatTime = () => {
     const getSeconds = `0${(timer % 60)}`.slice(-2)
@@ -264,60 +283,79 @@ function DashboardUser() {
   console.log(fullP);
 
   const ListCurrent = (name) => (
-    <SemList relaxed='very' size ='small'>
+    <SemList relaxed='very' size ='large' >
       <Menu compact >
-      <Menu.Item size ='massive'>
+      <Menu.Item size ='massive' >
         <Icon name='mail' /> Current Session
 
       </Menu.Item>
       </Menu>
   
       {isActive && 
-      <SemList.Item>
+        <SemList.Item>
         <Image avatar src={blueP} />
         <SemList.Content>
           <SemList.Header as='a'>{name}</SemList.Header>
           <SemList.Description>
             
-            Entered at
+            Entered at &nbsp;
             
-            <p> </p>
-            <div>
-            {getCurrentTime()}
-            </div>
+            {enter}
           </SemList.Description>
         </SemList.Content>
-      </SemList.Item>
+        </SemList.Item>
       }
 
-      {!isPaused && timer!==0 &&
-  
-  <div className = {classes.headTimer}>        
-  <Label color='red' horizontal >
-      Parking Duration
+  {!isPaused && timer!==0 &&
+        
+       <SemList.Item>
+        <Image avatar src={blueP} />
+        <SemList.Content>
+          <SemList.Header as='a'>{name}</SemList.Header>
+          <SemList.Description>
+            
+            Exited at &nbsp;
+            
+            {exit}
+          </SemList.Description>
+        </SemList.Content>
+        </SemList.Item>
+    }
+        
+      
+    {!isPaused && timer!==0 &&
+    <div className = {classes.headTimer}>        
+    <Label color='red' horizontal >
+        Parking Duration
 
-  </Label>
-  
-  <p> </p>
+    </Label>
+    
+    <p> </p>
 
-    {formatTime(timer)} 
-    </div>
-  }
+      {formatTime(timer)} 
+
+      </div>
+    
+       
+    }
   
+
   
   {isActive && isPaused &&
-  <div className = {classes.headTimer}>
-  
-  
-  <Label color='green' horizontal >
-      Parking Duration:
-  </Label>
-  <p> </p>
+    <div className = {classes.headTimer}>
+    
+    
+    <Label color='green' horizontal >
+        Parking Duration:
+    </Label>
+    <p> </p>
 
-    {formatTime(timer)} 
-    </div>
+      {formatTime(timer)} 
+      </div>
   }
-  
+
+
+ 
   
     </SemList>
   )
@@ -404,7 +442,7 @@ function DashboardUser() {
                       <Paper  flexGrow={1}>
                         
                         <LotCard 
-                          startTimer = {iniTimer} stopTimer = {handlePause}
+                          startTimer = {iniTimer} stopTimer = {exiTimer}
                           Name = {lotID} Location = "Ottawa"
                           Empty = {emptyP} Full = {fullP} Total = {emptyP+fullP}
                           Address= "123 Lane" Facility  = "Underground" 

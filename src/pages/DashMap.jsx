@@ -1,9 +1,9 @@
 import React from 'react';
-import {gql, useQuery} from '@apollo/client'
+import {gql, useQuery, useMutation} from '@apollo/client'
 import clsx from 'clsx';
 import { Icon,
     Menu, Label,
-    Image,
+    Image,Button,
     List as SemList
      } from 'semantic-ui-react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -154,6 +154,24 @@ const useStyles = makeStyles((theme) => ({
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+  const [mapData, setMapData] = React.useState();
+
+  const mutation = gql`
+
+  
+    mutation {
+      updateParkingSpace(id: "6035c931a1ffe80204b8de3a"
+        , parkingSpaceDetails: { isOccupied: true})
+        {
+          spaceNumber
+          isOccupied
+        }
+      }
+
+
+
+  `
+
   const query = gql`
 
   query {
@@ -162,6 +180,7 @@ const useStyles = makeStyles((theme) => ({
       
     }
   `
+    const muData = useMutation(mutation);
 
 
   const {loading, data, error} = useQuery(query, {
@@ -184,13 +203,10 @@ const useStyles = makeStyles((theme) => ({
 
   const lotID = data.getAllParkingSpace[0].parkingLotIdentifier;
 
-  
-  console.log(data.getAllParkingSpace)
+
   
   data.getAllParkingSpace.map( (p) =>  p.isOccupied ? fullP+=1 : emptyP+=1)
 
-  console.log(emptyP);
-  console.log(fullP);
 
   return (
     <div className={classes.root}>
@@ -241,6 +257,25 @@ const useStyles = makeStyles((theme) => ({
 
         <Container maxWidth="lg" className={classes.container}>
 
+          <Button onClick = { muData[0]}>
+
+          Set true
+          </Button>
+          
+       
+
+          
+          {console.log("Dates")}
+          {console.log(new Date().toLocaleString('en-us', { month: 'long' }),
+            new Date().getDay().toString(),
+          ",",new Date().getFullYear().toString())}
+
+          {console.log(new Date().getHours().toString(),":",new Date().getMinutes().toString(),":"
+          ,new Date().getSeconds().toString())}
+          
+
+          <div> {fullP}</div> 
+          <div> {emptyP}</div>
           <LotMap admin={false} lotData = {data.getAllParkingSpace}/>
         </Container>
       </main>
