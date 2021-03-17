@@ -32,6 +32,8 @@ export default class LotMap extends React.Component {
 
     const data = props;
 
+    console.log("Dee",data);
+
     const initialT = [
 
       { i: (data.lotData[0].spaceNumber-1).toString(), x: 2, y: 3, w: 1, h: 6, 
@@ -49,6 +51,10 @@ export default class LotMap extends React.Component {
         isDraggable: data.admin, 
       static: data.lotData[2].isOccupied},
       
+      { i: (data.lotData[3].spaceNumber-1).toString(), x: 4, y: 0, w: 2, h: 3 , 
+        isResizable: false, 
+        isDraggable: data.admin, 
+      static: data.lotData[3].isOccupied},
     ];
     
     console.log(data );
@@ -74,7 +80,7 @@ export default class LotMap extends React.Component {
       prevProps.lotData !== this.props.lotData) {
 
         
-      this.onOccupancyChange(this.props);
+      this.onOccupancyChange(this.props, this.state.layouts);
     
     }
     
@@ -98,10 +104,16 @@ export default class LotMap extends React.Component {
       isResizable: false,
         isDraggable: data.admin, 
     static: data.layouts[1].static},
+
     { i: (data.layouts[2].i).toString(), x: 0, y: 0, w: 2, h: 3 , 
       isResizable: false, 
       isDraggable: data.admin, 
     static: data.layouts[2].static},
+
+    { i: (data.layouts[3].i).toString(), x: 4, y: 0, w: 2, h: 3 , 
+      isResizable: false, 
+      isDraggable: data.admin, 
+    static: data.layouts[3].static},
     
   ];
   return initial;
@@ -110,16 +122,28 @@ export default class LotMap extends React.Component {
 
   
 
-  onOccupancyChange = (newProps) => {
+  onOccupancyChange = (newProps, currentState) => {
 
-    console.log("New props" ,newProps);
-    const newData = newProps.lotData.map((p) =>  ({i: p.spaceNumber.toString(), 
-        x: 2, y: 3, w: 1, h: 6,
-      isResizable: false,isDraggable: false,  static: p.isOccupied}))
   
 
-    console.log("New data" ,newData);
-    this.setState({ layouts: newData});
+    const newLayouts = currentState;
+   
+
+    const newData = newProps.lotData.map((p) =>  ({i: p.spaceNumber.toString(), 
+        x: 2, y: 3, w: 1, h: 6,
+        isResizable: false,isDraggable: false,  static: p.isOccupied}));
+
+      
+      
+
+           
+        newProps.lotData.map( (p) => 
+ 
+          newLayouts[p.spaceNumber-1].static = p.isOccupied
+ 
+        );
+            
+    this.setState({ layouts: newLayouts});
 
   }
 

@@ -225,6 +225,11 @@ const useStyles = makeStyles((theme) => ({
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           Parking Lot Map
           </Typography>
+
+
+          <Link onClick = {localStorage.clear("token")} color="inherit" href="/login">
+                          Log out                  </Link>
+
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />

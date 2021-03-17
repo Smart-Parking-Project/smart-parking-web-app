@@ -8,6 +8,8 @@ import { Icon,
     Button,
     List as SemList
      } from 'semantic-ui-react';
+
+import { Link as routeLink } from "react-router-dom";
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -30,7 +32,6 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import {gql, useQuery} from '@apollo/client'
 
 import { AuthContext } from "../context/auth";
-
 
 
 import { mainListItems, secondaryListItems } from '../components/listItems';
@@ -186,18 +187,22 @@ function getCurrentTime(){
 
   const today = new Date();
 
+    const timeNow = `${today.getHours()  }:${  today.getMinutes()  }:${  today.getSeconds()}`;
   
   return <Timestamp 
         options={{ includeDay: false, includeYear: false, includeMonth: false,
     twentyFourHour: true }} date={today} />;
-  } 
+  }
 
  
 
 function DashboardUser() {
+
   const classes = useStyles();
   const { user } = useContext(AuthContext);
 
+
+  console.log("User", user);
   
   const [open, setOpen, timerOn, setTimerOn] = useState(false);
 
@@ -281,6 +286,13 @@ function DashboardUser() {
 
   console.log(emptyP);
   console.log(fullP);
+
+  const logAway = () => { localStorage.clear("token"); 
+  
+    
+ 
+  }
+  
 
   const ListCurrent = (name) => (
     <SemList relaxed='very' size ='large' >
@@ -395,8 +407,13 @@ function DashboardUser() {
 
                 
                   </div>
+
                 
                 
+                   <Link onClick = {logAway} color="inherit" href="/login">
+                          Log out                  </Link>
+
+
 
                 <IconButton color="inherit">
                   <Badge badgeContent={4} color="secondary" >
@@ -436,7 +453,6 @@ function DashboardUser() {
 
                     {/* Lot card */}
                     <Grid item xs={12} md={4} lg={3}  > 
-
 
 
                       <Paper  flexGrow={1}>
