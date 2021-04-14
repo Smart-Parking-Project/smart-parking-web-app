@@ -1,6 +1,7 @@
 import React, { useState, useContext, proptypes } from "react";
 import { Image, List, Form, Button, Label,Accordion,
-   Container,Item,Header, Tab, Input } from 'semantic-ui-react'
+   Container,Item,Header, Tab, Input,
+    Grid, Popup } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth";
 
@@ -34,14 +35,13 @@ function Lotcard(props) {
 
   const changeTimerText = (text) => { 
 
-    const timerT = text === "Enter Now" ? "Exit" : "Enter Now";
+    const timerT = text === "Enter Now" ? "Pay" : "Enter Now";
     setTimerText(timerT);
     handleStart()
   }
 
   
   const rootPanels = () => [
-
 
     { key: 'panel-1', title: 'Enter Lot', 
       content: { content: <div>
@@ -50,16 +50,28 @@ function Lotcard(props) {
           <Button primary onClick={() => {handleStart(); info.startTimer();}}>Enter Now</Button>
           : (
            <div>
+              <Popup wide trigger={<Button content='Pay' />} on='click'>
+                  <Grid divided columns='equal'>
+                    <Grid.Column>
+                      <Popup
+                        trigger={<Button primary onClick={() => {handlePause(); info.stopTimer();}}
+                        color='blue' content='Exit' fluid />}
+                        content = 'Exit parking lot'
+                        position='top center'
+                        size='tiny'
+                        inverted
+                      />
+                    </Grid.Column>
+                 
+                  </Grid>
+                </Popup>
 
-          <Button primary onClick={() => {handlePause(); info.stopTimer();}}>Exit</Button>
+          {/* <Button primary onClick={() => {handlePause(); info.stopTimer();}}>Exit</Button> */}
            <p>{formatTime(timer)}</p>
 
           </div>
           )
-
         }
-
-        
       </div>
       }
     }
@@ -81,32 +93,20 @@ function Lotcard(props) {
   
 
   return (
-
-  
-
     <div >
-
       <List className = 'List' divided verticalAlign='middle'>
-        
         <List.Item key='CU P1' >   
-        
-        
         <Label >
 
-           <Label  as={Link} color='blue' ribbon  to= {info.admin? "/mapAdmin" : "/map"}>
-              Map</Label> 
+          <Label  as={Link} color='blue' ribbon  to= {info.admin? "/mapAdmin" : "/map"}>
+            Map</Label> 
            
-          
-          
-          <Label  inverted as={Link}
-                  color ="black" onClick={()=> setFrontSide(!frontSide) } >
-                     {info.Name} </Label>  
+          <Label  inverted as={Link} color ="black" onClick={()=> setFrontSide(!frontSide) } >
+            {info.Name} </Label>  
 
           
-
           <List.Content >
           <p>   </p> 
-
           { frontSide ? <div> 
 
             Location: 
@@ -114,11 +114,7 @@ function Lotcard(props) {
             <p>   </p>
           
 
-           
            <Label>Spots</Label>
-          
-           
-
            <Button.Group >
             <Button  color='green' animated='fade' size='mini'>
               <Button.Content visible >{info.Empty}</Button.Content>
@@ -142,54 +138,43 @@ function Lotcard(props) {
                 
              : 
               
-             
-
+            
               <Accordion panels={rootPanels()}  />
               
               
               
 
-              }
+            }
             
 
 
 
-          </div> : <div>
-
+            </div>
+           : 
+            <div>
 
           <Input  size='big' transparent = {!info.admin} readOnly={!info.admin}
            fluid label='Location:' defaultValue={info.Location}  />
           
-
           <Input  size='big' transparent = {!info.admin} readOnly={!info.admin} 
             fluid label='Address:' defaultValue={info.Address}  />
-
-          
+    
           <Input  size='big' transparent = {!info.admin} readOnly={!info.admin} 
                   fluid label='Facility Type: ' defaultValue={info.Facility}  />
 
-
-
           <Input  size='big' transparent = {!info.admin} readOnly={!info.admin}
            fluid label='Capacity: ' defaultValue={info.Capacity}  />
-
-
-
-          <Input  size='big' transparent = {!info.admin} readOnly={!info.admin} 
-                  fluid label='Electric Stations: ' defaultValue={info.Electric}  />
-
 
 
           <h2 color ='blue'>Rate Information  </h2>
 
           <p1 >Hourly Rate:</p1>
          
-
            <Input  readOnly={!info.admin}  fluid
               defaultValue={info.Rate} labelPosition='right' type='text' placeholder='Rate'>
             <Label basic>$</Label>
             <input />
-            <Label color ='black'>per half hour</Label>
+            <Label color ='black'>per hour</Label>
           </Input>
 
           <Input  size='large' transparent = {!info.admin} readOnly={!info.admin} fluid  
@@ -201,14 +186,8 @@ function Lotcard(props) {
 
            {info.admin && <Label display = {info.admin} as='a' color='red' tag>  Save   </Label>}
 
-           
-
           </div> }
               
-            
-
-        
-          
           
         </List.Content>
         </Label>

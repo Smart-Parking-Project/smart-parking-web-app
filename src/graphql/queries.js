@@ -8,3 +8,4 @@ export const GET_PARKINGS = gql`
     }
   }
 `;
+

@@ -36,37 +36,43 @@ export default class LotMap extends React.Component {
 
     const initialT = [
 
-      { i: (data.lotData[0].spaceNumber-1).toString(), x: 2, y: 3, w: 1, h: 6, 
+      { i: (data.lotData[0].spaceNumber-1).toString(), x: 2, y: 0, w: 1, h: 6, 
         isResizable: false,
          isDraggable: data.admin, 
       static: data.lotData[0].isOccupied},
 
-      { i: (data.lotData[1].spaceNumber-1).toString(), x: 3, y: 3, w: 1, h: 6, 
+      { i: (data.lotData[1].spaceNumber-1).toString(), x: 3, y: 0, w: 1, h: 6, 
         isResizable: false,
           isDraggable: data.admin, 
       static: data.lotData[1].isOccupied},
 
-      { i: (data.lotData[2].spaceNumber-1).toString(), x: 0, y: 0, w: 2, h: 3 , 
+      { i: (data.lotData[2].spaceNumber-1).toString(), x: 2, y: 6, w: 1, h: 6 , 
         isResizable: false, 
         isDraggable: data.admin, 
       static: data.lotData[2].isOccupied},
       
-      { i: (data.lotData[3].spaceNumber-1).toString(), x: 4, y: 0, w: 2, h: 3 , 
+      { i: (data.lotData[3].spaceNumber-1).toString(), x: 3, y: 6, w: 1, h: 6 , 
         isResizable: false, 
         isDraggable: data.admin, 
       static: data.lotData[3].isOccupied},
     ];
     
-    console.log(data );
+    console.log("Dataa ", data );
 
 
     this.state = {
-      newCounter: data.length,
+      newCounter: data.lotData.length,
       roadCount: 0,
       gateCount: 0,
       layouts: initialT,
       admin: data.admin
     };
+
+   
+
+    console.log("Initial", `${  this.state.newCounter}`);
+    console.log("State ", `${  this.state}`);
+    console.log("length ", `${  data.lotData.length}`);
   }
 
 
@@ -96,21 +102,21 @@ export default class LotMap extends React.Component {
      */
     const initial = [
 
-    { i: (data.layouts[0].i).toString(), x: 2, y: 3, w: 1, h: 6, 
+    { i: (data.layouts[0].i).toString(), x: 0, y: 2, w: 1, h: 6, 
       isResizable: false,
        isDraggable: data.admin, 
     static: data.layouts[0].static},
-    { i: (data.layouts[1].i).toString(), x: 3, y: 3, w: 1, h: 6, 
+    { i: (data.layouts[1].i).toString(), x: 0, y: 3, w: 1, h: 6, 
       isResizable: false,
         isDraggable: data.admin, 
     static: data.layouts[1].static},
 
-    { i: (data.layouts[2].i).toString(), x: 0, y: 0, w: 2, h: 3 , 
+    { i: (data.layouts[2].i).toString(), x: 6, y: 2, w: 1, h: 6 , 
       isResizable: false, 
       isDraggable: data.admin, 
     static: data.layouts[2].static},
 
-    { i: (data.layouts[3].i).toString(), x: 4, y: 0, w: 2, h: 3 , 
+    { i: (data.layouts[3].i).toString(), x: 6, y: 3, w: 1, h: 6 , 
       isResizable: false, 
       isDraggable: data.admin, 
     static: data.layouts[3].static},
@@ -154,6 +160,7 @@ export default class LotMap extends React.Component {
 
    onAddSpaceHorizontal = () => {
     console.log("adding", `p${  this.state.newCounter}`);
+
     this.setState((prevState) => ({
       layouts: prevState.layouts.concat({
         i: prevState.newCounter.toString(),
@@ -174,6 +181,7 @@ export default class LotMap extends React.Component {
 
    onAddSpaceVertical = () => {
     console.log("adding", `p${  this.state.newCounter}`);
+    console.log("STate ", `p${  this.state}`);
     this.setState((prevState) => ({
       // Add a new item. It must have a unique key!
       layouts: prevState.layouts.concat({
@@ -193,7 +201,8 @@ export default class LotMap extends React.Component {
       newCounter: prevState.newCounter + 1,
       
     }));
-    console.log(this.state.layouts);
+
+    console.log(this.state);
     
   };
 
@@ -257,20 +266,16 @@ export default class LotMap extends React.Component {
      const spaceColor= (el.isEmpty ? spaceStyle.empty : spaceStyle.full)
       
     const i = el.add ? "+" : el.i;
-
-    /*
-    console.log(i)
-    console.log(el)
-    console.log(el.isEmpty)
-      console.log(spaceColor)
-  */
+    const row= el.y > 5 ? "B" : "A";
+    const secondId = el.i>1? el.i-2:el.i;
 
     return (
       <div key={i} data-grid={el}  >
-        <div className="text">{i}</div>
-        <div className="text">{el.y}</div>
-        <div className="text">{el.x}</div>
+        <div className="text">Level 1</div>
         
+
+        <div className="text">{row} {secondId}</div>
+       
         {this.state.admin &&
         <span
           className="remove"
@@ -304,18 +309,13 @@ export default class LotMap extends React.Component {
           <button type="button" onClick={this.onAddSpaceHorizontal}>
             Add Horizontal Parking Space
           </button>
-    
           <button type="button" onClick={this.onAddRoad}>Add Road</button>
           <button type="button" onClick={this.onAddGate}>Add Gate</button>
           <p> </p>
           </div>
         }
-      
         <div>
-         { /*
-            {console.log("ADmin?")}
-           {console.log(this.state.admin)}
-         */}
+
         <ResponsiveReactGridLayout 
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...this.props}

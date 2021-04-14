@@ -160,13 +160,13 @@ const useStyles = makeStyles((theme) => ({
 
   
     mutation {
-      updateParkingSpace(id: "6035c931a1ffe80204b8de3a"
-        , parkingSpaceDetails: { isOccupied: true})
-        {
-          spaceNumber
-          isOccupied
+        updateParkingSpace(id: "6035c931a1ffe80204b8de3a"
+          , parkingSpaceDetails: { isOccupied: true})
+          {
+            spaceNumber
+            isOccupied
+          }
         }
-      }
 
 
 
@@ -262,14 +262,13 @@ const useStyles = makeStyles((theme) => ({
 
         <Container maxWidth="lg" className={classes.container}>
 
+      {/* }
           <Button onClick = { muData[0]}>
 
           Set true
           </Button>
           
-       
-
-          
+      
           {console.log("Dates")}
           {console.log(new Date().toLocaleString('en-us', { month: 'long' }),
             new Date().getDay().toString(),
@@ -277,10 +276,11 @@ const useStyles = makeStyles((theme) => ({
 
           {console.log(new Date().getHours().toString(),":",new Date().getMinutes().toString(),":"
           ,new Date().getSeconds().toString())}
-          
+       */}
 
-          <div> {fullP}</div> 
-          <div> {emptyP}</div>
+          <div>Full Spots:  {fullP}</div> 
+          <div>Empty Spots: {emptyP}</div>
+          <div>Total Spots: {emptyP+fullP}</div>
           <LotMap admin={false} lotData = {data.getAllParkingSpace}/>
         </Container>
       </main>

@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
+
 import { Form, Button } from "semantic-ui-react";
+
 import { useMutation } from "@apollo/client";
 import { AUTHENTICATE_USER } from "../graphql/mutations";
 import { useForm } from "../util/authHooks";
@@ -59,6 +61,7 @@ function Login(props) {
           Login
         </Button>
       </Form>
+      
       {Object.keys(errors).length > 0 && (
         <div>
           <ul className="ui error message">
